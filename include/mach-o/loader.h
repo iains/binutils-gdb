@@ -66,6 +66,9 @@ bfd_mach_o_cpu_type;
 
 typedef enum bfd_mach_o_cpu_subtype
 {
+  /* powerpc.  */
+  BFD_MACH_O_CPU_SUBTYPE_POWERPC_ALL = 0,
+
   /* i386.  */
   BFD_MACH_O_CPU_SUBTYPE_X86_ALL = 3,
 

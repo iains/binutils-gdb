@@ -6267,7 +6267,7 @@ bfd_mach_o_bfd_free_cached_info (bfd *abfd)
 #define TARGET_NAME		mach_o_be_vec
 #define TARGET_STRING		"mach-o-be"
 #define TARGET_ARCHITECTURE	bfd_arch_unknown
-#define TARGET_PAGESIZE		1
+#define TARGET_PAGESIZE		4096
 #define TARGET_BIG_ENDIAN	1
 #define TARGET_ARCHIVE		0
 #define TARGET_PRIORITY		1
@@ -6284,7 +6284,7 @@ bfd_mach_o_bfd_free_cached_info (bfd *abfd)
 #define TARGET_NAME		mach_o_le_vec
 #define TARGET_STRING		"mach-o-le"
 #define TARGET_ARCHITECTURE	bfd_arch_unknown
-#define TARGET_PAGESIZE		1
+#define TARGET_PAGESIZE		4096
 #define TARGET_BIG_ENDIAN	0
 #define TARGET_ARCHIVE		0
 #define TARGET_PRIORITY		1

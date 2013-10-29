@@ -6358,6 +6358,23 @@ BFD_RELOC_MACH_O_PAIR.  */
 /* Pair of relocation.  Contains the first symbol.  */
   BFD_RELOC_MACH_O_PAIR,
 
+/* In each case, followed by a PAIR containing the value in the lower
+16bits.  For the 'HA' case, the low 16bits are sign-extended before
+addition to the high part.  */
+  BFD_RELOC_MACH_O_PPC_LO16,
+  BFD_RELOC_MACH_O_PPC_HI16,
+  BFD_RELOC_MACH_O_PPC_HA16,
+
+/* As per LO16, except that the lower two bits are always zero, and not
+stored in the instruction.  */
+  BFD_RELOC_MACH_O_PPC_LO14,
+
+/* As above, but when the relocs are between sections.  */
+  BFD_RELOC_MACH_O_PPC_LO16_SECTDIFF,
+  BFD_RELOC_MACH_O_PPC_HI16_SECTDIFF,
+  BFD_RELOC_MACH_O_PPC_HA16_SECTDIFF,
+  BFD_RELOC_MACH_O_PPC_LO14_SECTDIFF,
+
 /* Symbol will be substracted.  Must be followed by a BFD_RELOC_32.  */
   BFD_RELOC_MACH_O_SUBTRACTOR32,
 

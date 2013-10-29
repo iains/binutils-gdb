@@ -414,3 +414,11 @@ const mach_o_segment_name_xlat mach_o_i386_segsec_names_xlat[] =
 #define TARGET_ARCHIVE		0
 #define TARGET_PRIORITY		0
 #include "mach-o-target.c"
+
+#undef TARGET_NAME
+#undef TARGET_STRING
+#undef TARGET_ARCHITECTURE
+#undef TARGET_PAGESIZE
+#undef TARGET_BIG_ENDIAN
+#undef TARGET_ARCHIVE
+#undef TARGET_PRIORITY

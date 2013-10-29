@@ -298,7 +298,7 @@ bfd_mach_o_arm64_bfd_reloc_name_lookup (bfd *abfd ATTRIBUTE_UNUSED,
 #define TARGET_NAME		aarch64_mach_o_vec
 #define TARGET_STRING		"mach-o-arm64"
 #define TARGET_ARCHITECTURE	bfd_arch_aarch64
-#define TARGET_PAGESIZE		4096
+#define TARGET_PAGESIZE		16384
 #define TARGET_BIG_ENDIAN	0
 #define TARGET_ARCHIVE		0
 #define TARGET_PRIORITY		0

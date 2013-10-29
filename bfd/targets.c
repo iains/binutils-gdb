@@ -855,6 +855,8 @@ extern const bfd_target powerpc_elf64_vec;
 extern const bfd_target powerpc_elf64_le_vec;
 extern const bfd_target powerpc_elf64_fbsd_vec;
 extern const bfd_target powerpc_elf64_fbsd_le_vec;
+extern const bfd_target powerpc_mach_o_vec;
+extern const bfd_target powerpc64_mach_o_vec;
 extern const bfd_target powerpc_xcoff_vec;
 extern const bfd_target pru_elf32_vec;
 extern const bfd_target riscv_elf32_vec;
@@ -1240,6 +1242,10 @@ static const bfd_target * const _bfd_target_vector[] =
 	&powerpc_elf64_le_vec,
 	&powerpc_elf64_fbsd_vec,
 	&powerpc_elf64_fbsd_le_vec,
+#endif
+	&powerpc_mach_o_vec,
+#ifdef BFD64
+	&powerpc64_mach_o_vec,
 #endif
 #if 0
 	/* This has the same magic number as RS/6000.  */

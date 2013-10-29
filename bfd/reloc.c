@@ -6670,6 +6670,33 @@ ENUMDOC
   Address of a GOT entry.
 
 ENUM
+  BFD_RELOC_MACH_O_PPC_LO16
+ENUMX
+  BFD_RELOC_MACH_O_PPC_HI16
+ENUMX
+  BFD_RELOC_MACH_O_PPC_HA16
+ENUMDOC
+  In each case, followed by a PAIR containing the value in the lower
+  16bits.  For the 'HA' case, the low 16bits are sign-extended before
+  addition to the high part.
+ENUM
+  BFD_RELOC_MACH_O_PPC_LO14
+ENUMDOC
+  As per LO16, except that the lower two bits are always zero, and not
+  stored in the instruction.
+
+ENUM
+  BFD_RELOC_MACH_O_PPC_LO16_SECTDIFF
+ENUMX
+  BFD_RELOC_MACH_O_PPC_HI16_SECTDIFF
+ENUMX
+  BFD_RELOC_MACH_O_PPC_HA16_SECTDIFF
+ENUMX
+  BFD_RELOC_MACH_O_PPC_LO14_SECTDIFF
+ENUMDOC
+  As above, but when the relocs are between sections.
+
+ENUM
   BFD_RELOC_MICROBLAZE_32_LO
 ENUMDOC
   This is a 32 bit reloc for the microblaze that stores the

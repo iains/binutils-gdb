@@ -366,6 +366,7 @@ BFD32_BACKENDS = \
 	mach-o.lo \
 	mach-o-i386.lo \
 	mach-o-arm.lo \
+	mach-o-powerpc.lo \
 	ns32knetbsd.lo \
 	pc532-mach.lo \
 	pdb.lo \
@@ -501,6 +502,7 @@ BFD32_BACKENDS_CFILES = \
 	mach-o.c \
 	mach-o-i386.c \
 	mach-o-arm.c \
+	mach-o-powerpc.c \
 	ns32knetbsd.c \
 	pc532-mach.c \
 	pdb.c \
@@ -577,6 +579,7 @@ BFD64_BACKENDS = \
 	elf64.lo \
 	mach-o-aarch64.lo \
 	mach-o-x86-64.lo \
+	mach-o-powerpc64.lo \
 	mmo.lo \
 	pe-aarch64igen.lo \
 	pe-loongarch64igen.lo \
@@ -623,6 +626,7 @@ BFD64_BACKENDS_CFILES = \
 	elfxx-riscv.c \
 	mach-o-aarch64.c \
 	mach-o-x86-64.c \
+	mach-o-powerpc64.c \
 	mmo.c \
 	pe-aarch64.c \
 	pe-x86_64.c \

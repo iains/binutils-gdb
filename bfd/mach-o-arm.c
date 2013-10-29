@@ -361,3 +361,8 @@ bfd_mach_o_arm_bfd_reloc_name_lookup (bfd *abfd ATTRIBUTE_UNUSED,
 #define TARGET_ARCHIVE		0
 #define TARGET_PRIORITY		0
 #include "mach-o-target.c"
+
+#undef TARGET_NAME
+#undef TARGET_STRING
+#undef TARGET_ARCHIVE
+#undef TARGET_PRIORITY
