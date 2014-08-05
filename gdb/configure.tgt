@@ -488,6 +488,18 @@ or1k-*-* | or1knd-*-*)
 	gdb_target_obs="or1k-tdep.o"
 	;;
 
+powerpc-*-darwin*)
+	# Target: Darwin/powerpc
+	gdb_target_obs="rs6000-tdep.o ppc-sysv-tdep.o ppc-darwin-tdep.o \
+			solib-darwin.o"
+	if test "x$enable_64_bit_bfd" = "xyes"; then
+	    # Target: ppc64 darwin 8 or 9
+	    gdb_target_obs="${gdb_target_obs} ppc64-darwin-tdep.o"
+	fi
+	gdb_target_obs="${gdb_target_obs} ravenscar-thread.o \
+	                ppc-ravenscar-thread.o"
+	;;
+
 powerpc*-*-freebsd*)
 	# Target: FreeBSD/powerpc
 	gdb_target_obs="rs6000-tdep.o ppc-sysv-tdep.o ppc64-tdep.o \

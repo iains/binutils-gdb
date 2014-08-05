@@ -1424,6 +1424,7 @@ HFILES_NO_SRCDIR = \
 	osdata.h \
 	p-lang.h \
 	parser-defs.h \
+	ppc-darwin-tdep.h \
 	ppc-fbsd-tdep.h \
 	ppc-linux-tdep.h \
 	ppc-netbsd-tdep.h \
@@ -1431,6 +1432,7 @@ HFILES_NO_SRCDIR = \
 	ppc-ravenscar-thread.h \
 	ppc-tdep.h \
 	ppc64-tdep.h \
+	ppc64-darwin-tdep.h \
 	probe.h \
 	proc-utils.h \
 	procfs.h \
@@ -1773,6 +1775,8 @@ ALLDEPFILES = \
 	obsd-tdep.c \
 	or1k-linux-nat.c \
 	posix-hdep.c \
+	ppc-darwin-nat.c \
+	ppc-darwin-tdep.c \
 	ppc-fbsd-nat.c \
 	ppc-fbsd-tdep.c \
 	ppc-linux-nat.c \
@@ -1784,6 +1788,7 @@ ALLDEPFILES = \
 	ppc-ravenscar-thread.c \
 	ppc-sysv-tdep.c \
 	ppc64-tdep.c \
+	ppc64-darwin-tdep.c \
 	procfs.c \
 	ravenscar-thread.c \
 	remote-sim.c \

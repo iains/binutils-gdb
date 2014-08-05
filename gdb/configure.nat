@@ -148,6 +148,10 @@ case ${gdb_host} in
 		NATDEPFILES="${NATDEPFILES} i386-darwin-nat.o x86-nat.o \
 		    nat/x86-dregs.o amd64-nat.o"
 		;;
+	    powerpc)
+		# Host: PowerPC running Darwin
+		NATDEPFILES="${NATDEPFILES} ppc-darwin-nat.o "
+		;;
 	esac
 	;;
     fbsd)

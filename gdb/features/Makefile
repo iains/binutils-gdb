@@ -237,6 +237,7 @@ FEATURE_XMLFILES = aarch64-core.xml \
 	loongarch/base32.xml \
 	loongarch/base64.xml \
 	loongarch/fpu.xml \
+	rs6000/powerpc-macho-vrvalid.xml \
 	riscv/rv32e-xregs.xml \
 	riscv/32bit-cpu.xml \
 	riscv/32bit-fpu.xml \

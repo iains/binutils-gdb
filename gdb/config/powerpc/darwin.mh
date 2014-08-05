@@ -1,0 +1,4 @@
+# Host: PPC running Darwin
+
+NATDEPFILES = fork-child.o darwin-nat.o ppc-darwin-nat.o \
+     inf-ptrace.o darwin-nat-info.o
