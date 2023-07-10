@@ -2142,8 +2142,8 @@ darwin_read_write_inferior (task_t task, CORE_ADDR addr,
 	 non-null.  */
       gdb_assert (wraddr == NULL);
 
-      kret = mach_vm_read_overwrite (task, addr, length,
-				     (mach_vm_address_t) rdaddr, &count);
+      mach_vm_address_t ra = (mach_vm_address_t) (uintptr_t) rdaddr;
+      kret = mach_vm_read_overwrite (task, addr, length, ra, &count);
       if (kret != KERN_SUCCESS)
 	{
 	  inferior_debug
@@ -2237,7 +2237,8 @@ darwin_read_write_inferior (task_t task, CORE_ADDR addr,
 	write_length = length;
 
       /* Write.  */
-      kret = mach_vm_write (task, addr, (vm_offset_t) wraddr, write_length);
+      vm_offset_t wa = (vm_offset_t) (uintptr_t) wraddr;
+      kret = mach_vm_write (task, addr, wa, write_length);
       if (kret != KERN_SUCCESS)
 	{
 	  warning (_("darwin_read_write_inferior: mach_vm_write failed: %s"),
