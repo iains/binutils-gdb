@@ -1417,10 +1417,9 @@ dwarf2_per_bfd::locate_sections (bfd *abfd, asection *sectp,
   if ((aflag & SEC_HAS_CONTENTS) == 0)
     {
     }
-  else if (elf_section_data (sectp)->this_hdr.sh_size
-	   > bfd_get_file_size (abfd))
+  else if (bfd_section_size (sectp) > bfd_get_file_size (abfd))
     {
-      bfd_size_type size = elf_section_data (sectp)->this_hdr.sh_size;
+      bfd_size_type size = bfd_section_size (sectp);
       warning (_("Discarding section %s which has a section size (%s"
 		 ") larger than the file size [in module %s]"),
 	       bfd_section_name (sectp), phex_nz (size, sizeof (size)),

@@ -3650,9 +3650,9 @@ bfd_mach_o_read_section_32 (bfd *abfd, unsigned long prot)
   section->segname[BFD_MACH_O_SEGNAME_SIZE] = 0;
   memcpy (section->sectname, raw.sectname, sizeof (raw.sectname));
   section->sectname[BFD_MACH_O_SECTNAME_SIZE] = 0;
-  section->addr = bfd_h_get_32 (abfd, raw.addr);
-  section->size = bfd_h_get_32 (abfd, raw.size);
-  section->offset = bfd_h_get_32 (abfd, raw.offset);
+  section->addr = (bfd_vma)bfd_h_get_32 (abfd, raw.addr);
+  section->size = (bfd_vma)bfd_h_get_32 (abfd, raw.size);
+  section->offset = (bfd_vma)bfd_h_get_32 (abfd, raw.offset);
   section->align = bfd_h_get_32 (abfd, raw.align);
   /* PR 17512: file: 0017eb76.  */
   if (section->align >= 31)
@@ -3662,7 +3662,7 @@ bfd_mach_o_read_section_32 (bfd *abfd, unsigned long prot)
 	 section->align);
       section->align = 30;
     }
-  section->reloff = bfd_h_get_32 (abfd, raw.reloff);
+  section->reloff = (bfd_vma)bfd_h_get_32 (abfd, raw.reloff);
   section->nreloc = bfd_h_get_32 (abfd, raw.nreloc);
   section->flags = bfd_h_get_32 (abfd, raw.flags);
   section->reserved1 = bfd_h_get_32 (abfd, raw.reserved1);
