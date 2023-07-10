@@ -431,8 +431,8 @@ gdb_pipe_cloexec (int filedes[2])
 bool
 is_regular_file (const char *name, int *errno_ptr)
 {
-  struct stat st;
-  const int status = stat (name, &st);
+  struct stat64 st{};
+  const int status = stat64 (name, &st);
 
   /* Stat should never fail except when the file does not exist.
      If stat fails, analyze the source of error and return true
