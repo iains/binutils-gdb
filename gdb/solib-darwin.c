@@ -78,6 +78,11 @@ struct darwin_info
 
   /* Gdb copy of dyld_all_info_infos.  */
   struct gdb_dyld_all_image_infos all_image {};
+
+  /* To figure out if we are executing dyld code.  */
+  CORE_ADDR dyld_text_start = 0;
+  CORE_ADDR dyld_text_end = 0;
+  
 };
 
 /* Per-program-space data key.  */
@@ -396,6 +401,23 @@ darwin_read_exec_load_addr_at_init (struct darwin_info *info)
 static int
 darwin_in_dynsym_resolve_code (CORE_ADDR pc)
 {
+  if (pc_in_section (pc, ".symbol_stub"))
+    return 1;
+  if (pc_in_section (pc, ".symbol_stub1"))
+    return 1;
+  if (pc_in_section (pc, ".picsymbol_stub"))
+    return 1;
+  if (pc_in_section (pc, ".picsymbol_stub1"))
+    return 1;
+  if (pc_in_section (pc, ".picsymbol_stub3"))
+    return 1;
+
+  struct darwin_info *info = get_darwin_info ();
+  if (info && info->dyld_text_start != 0
+      && pc >= info->dyld_text_start
+      && pc < info->dyld_text_end)
+    return 1;
+  
   return 0;
 }
 
@@ -466,6 +488,18 @@ darwin_solib_get_all_image_info_addr_at_init (struct darwin_info *info)
   load_addr = (regcache_read_pc (get_current_regcache ())
 	       - bfd_get_start_address (dyld_bfd.get ()));
 
+  asection *txt = bfd_get_section_by_name (dyld_bfd.get (), ".text");
+  if (txt) {
+    bfd_vma start = bfd_section_vma (txt);
+    bfd_size_type size = bfd_section_size (txt);
+    info->dyld_text_start = load_addr + start;
+    info->dyld_text_end = start + size;
+  }
+
+  /* If we already know this ... done.  */
+  if (info->all_image_addr)
+    return;
+
   /* Now try to set a breakpoint in the dynamic linker.  */
   info->all_image_addr =
     lookup_symbol_from_bfd (dyld_bfd.get (), "_dyld_all_image_infos");
@@ -517,8 +551,8 @@ darwin_solib_create_inferior_hook (int from_tty)
 
   darwin_solib_read_all_image_info_addr (info);
 
-  if (info->all_image_addr == 0)
-    darwin_solib_get_all_image_info_addr_at_init (info);
+//  if (info->all_image_addr == 0)
+  darwin_solib_get_all_image_info_addr_at_init (info);
 
   if (info->all_image_addr == 0)
     return;
