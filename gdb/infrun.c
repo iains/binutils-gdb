@@ -7255,12 +7255,12 @@ process_event_stop_test (struct execution_control_state *ecs)
      initial outermost frame, before sp was valid, would
      have code_addr == &_start.  See the comment in frame_id::operator==
      for more.  */
-  if ((get_stack_frame_id (frame)
-       != ecs->event_thread->control.step_stack_frame_id)
-      && ((frame_unwind_caller_id (get_current_frame ())
-	   == ecs->event_thread->control.step_stack_frame_id)
-	  && ((ecs->event_thread->control.step_stack_frame_id
-	       != outer_frame_id)
+  gdb_assert (frame == get_current_frame () && "how did it change?");
+  frame_id this_fr = get_stack_frame_id (frame);
+  frame_id caller_fr = frame_unwind_caller_id (frame);
+  if ((this_fr != ecs->event_thread->control.step_stack_frame_id)
+      && ((caller_fr == ecs->event_thread->control.step_stack_frame_id)
+	  && ((ecs->event_thread->control.step_stack_frame_id != outer_frame_id)
 	      || (ecs->event_thread->control.step_start_function
 		  != find_pc_function (ecs->event_thread->stop_pc ())))))
     {

@@ -1986,6 +1986,9 @@ i386_frame_cache_1 (frame_info_ptr this_frame,
   int i;
 
   cache->pc = get_frame_func (this_frame);
+  CORE_ADDR frame_pc = get_frame_pc (this_frame);
+  if (cache->pc != 0)
+    i386_analyze_prologue (gdbarch, cache->pc, frame_pc, cache);
 
   /* In principle, for normal frames, %ebp holds the frame pointer,
      which holds the base address for the current stack frame.
@@ -1995,21 +1998,6 @@ i386_frame_cache_1 (frame_info_ptr this_frame,
      trampolines are just a special case of a "frameless" function.
      They (usually) share their frame pointer with the frame that was
      in progress when the signal occurred.  */
-
-  get_frame_register (this_frame, I386_EBP_REGNUM, buf);
-  cache->base = extract_unsigned_integer (buf, 4, byte_order);
-  if (cache->base == 0)
-    {
-      cache->base_p = 1;
-      return;
-    }
-
-  /* For normal frames, %eip is stored at 4(%ebp).  */
-  cache->saved_regs[I386_EIP_REGNUM] = 4;
-
-  if (cache->pc != 0)
-    i386_analyze_prologue (gdbarch, cache->pc, get_frame_pc (this_frame),
-			   cache);
 
   if (cache->locals < 0)
     {
@@ -2034,8 +2022,7 @@ i386_frame_cache_1 (frame_info_ptr this_frame,
 	  /* This will be added back below.  */
 	  cache->saved_regs[I386_EIP_REGNUM] -= cache->base;
 	}
-      else if (cache->pc != 0
-	       || target_read_code (get_frame_pc (this_frame), buf, 1))
+      else if (cache->pc != 0 || target_read_code (frame_pc, buf, 1))
 	{
 	  /* We're in a known function, but did not find a frame
 	     setup.  Assume that the function does not use %ebp.
@@ -2047,12 +2034,33 @@ i386_frame_cache_1 (frame_info_ptr this_frame,
 			+ cache->sp_offset;
 	}
       else
-	/* We're in an unknown function.  We could not find the start
-	   of the function to analyze the prologue; our best option is
-	   to assume a typical frame layout with the caller's %ebp
-	   saved.  */
-	cache->saved_regs[I386_EBP_REGNUM] = 0;
+	{
+	  /* We're in an unknown function.  We could not find the start
+	     of the function to analyze the prologue;
+	     Elect to assume nothing about %ebp but that we can find the
+	     caller's return address at *%esp. */
+	  get_frame_register (this_frame, I386_ESP_REGNUM, buf);
+	  cache->base = extract_unsigned_integer (buf, 4, byte_order)
+			+ cache->sp_offset;
+	}
     }
+  else
+    {
+      /* "Normal" case.  */
+      cache->saved_regs[I386_EBP_REGNUM] = 0;
+      get_frame_register (this_frame, I386_EBP_REGNUM, buf);
+      cache->base = extract_unsigned_integer (buf, 4, byte_order);
+      if (cache->base == 0)
+	{
+	  cache->base_p = 1;
+	  return;
+	}
+
+    }
+
+  /* For normal frames, %eip is stored at 4(%ebp) we fake the base to be
+     such that the offset is the same for unknown cases.  */
+  cache->saved_regs[I386_EIP_REGNUM] = 4;
 
   if (cache->saved_sp_reg != -1)
     {
